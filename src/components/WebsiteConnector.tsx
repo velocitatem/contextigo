@@ -36,7 +36,7 @@ export default function WebsiteConnector({ data }: WebsiteConnectorProps) {
 
   return (
     <div className="bg-white border-2 border-blue-500 rounded-lg p-4 min-w-[200px]">
-      <Handle type="target" position={Position.Top} />
+      <Handle type="target" position={Position.Left} />
       
       <div className="mb-2">
         <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -65,7 +65,7 @@ export default function WebsiteConnector({ data }: WebsiteConnectorProps) {
         </div>
       )}
       
-      <Handle type="source" position={Position.Bottom} />
+      <Handle type="source" position={Position.Right} />
     </div>
   );
 }

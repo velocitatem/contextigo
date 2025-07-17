@@ -99,7 +99,7 @@ export default function FlowCanvas({ onNodesChange, onEdgesChange }: FlowCanvasP
   );
 
   return (
-    <div className="flex-1 h-96">
+    <div className="w-full h-full">
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -111,6 +111,7 @@ export default function FlowCanvas({ onNodesChange, onEdgesChange }: FlowCanvasP
         onDragOver={onDragOver}
         nodeTypes={nodeTypes}
         fitView
+        style={{ width: '100%', height: '100%' }}
       >
         <Controls />
         <Background />

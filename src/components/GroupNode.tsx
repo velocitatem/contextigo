@@ -19,7 +19,7 @@ export default function GroupNode({ data }: GroupNodeProps) {
 
   return (
     <div className="bg-white border-2 border-purple-500 rounded-lg p-4 min-w-[200px]">
-      <Handle type="target" position={Position.Top} />
+      <Handle type="target" position={Position.Left} />
       
       <div className="mb-2">
         <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -38,7 +38,7 @@ export default function GroupNode({ data }: GroupNodeProps) {
         Groups connected inputs into XML tags: &lt;{groupName}&gt;...&lt;/{groupName}&gt;
       </div>
       
-      <Handle type="source" position={Position.Bottom} />
+      <Handle type="source" position={Position.Right} />
     </div>
   );
 }
