@@ -19,8 +19,26 @@ export default function Sidebar({ onDragStart }: SidebarProps) {
       color: 'bg-green-100 border-green-300',
     },
     {
+      type: 'googledrive',
+      label: 'Google Drive',
+      description: 'Access files from Google Drive',
+      color: 'bg-yellow-100 border-yellow-300',
+    },
+    {
+      type: 'github',
+      label: 'GitHub',
+      description: 'Connect to GitHub repositories',
+      color: 'bg-gray-100 border-gray-300',
+    },
+    {
+      type: 'codebase',
+      label: 'Codebase',
+      description: 'Analyze codebase files',
+      color: 'bg-indigo-100 border-indigo-300',
+    },
+    {
       type: 'group',
-      label: 'XML Group',
+      label: 'Group',
       description: 'Group inputs into XML tags',
       color: 'bg-purple-100 border-purple-300',
     },

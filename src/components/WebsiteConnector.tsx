@@ -7,9 +7,10 @@ import { NodeData } from '@/types';
 interface WebsiteConnectorProps {
   data: NodeData;
   id: string;
+  onDelete?: (id: string) => void;
 }
 
-export default function WebsiteConnector({ data }: WebsiteConnectorProps) {
+export default function WebsiteConnector({ data, id, onDelete }: WebsiteConnectorProps) {
   const [url, setUrl] = useState(data.url || '');
   const [isExecuting, setIsExecuting] = useState(false);
 
@@ -35,8 +36,18 @@ export default function WebsiteConnector({ data }: WebsiteConnectorProps) {
   };
 
   return (
-    <div className="bg-white border-2 border-blue-500 rounded-lg p-4 min-w-[200px]">
+    <div className="bg-white border-2 border-blue-500 rounded-lg p-4 min-w-[200px] relative">
       <Handle type="target" position={Position.Left} />
+      
+      {onDelete && (
+        <button
+          onClick={() => onDelete(id)}
+          className="absolute top-2 right-2 w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center text-xs font-bold transition-colors"
+          title="Delete node"
+        >
+          ×
+        </button>
+      )}
       
       <div className="mb-2">
         <label className="block text-sm font-medium text-gray-700 mb-1">

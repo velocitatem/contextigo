@@ -7,9 +7,10 @@ import { NodeData } from '@/types';
 interface GroupNodeProps {
   data: NodeData;
   id: string;
+  onDelete?: (id: string) => void;
 }
 
-export default function GroupNode({ data }: GroupNodeProps) {
+export default function GroupNode({ data, id, onDelete }: GroupNodeProps) {
   const [groupName, setGroupName] = useState(data.groupName || 'background');
 
   const handleGroupNameChange = (value: string) => {
@@ -18,12 +19,22 @@ export default function GroupNode({ data }: GroupNodeProps) {
   };
 
   return (
-    <div className="bg-white border-2 border-purple-500 rounded-lg p-4 min-w-[200px]">
+    <div className="bg-white border-2 border-purple-500 rounded-lg p-4 min-w-[200px] relative">
       <Handle type="target" position={Position.Left} />
+      
+      {onDelete && (
+        <button
+          onClick={() => onDelete(id)}
+          className="absolute top-2 right-2 w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center text-xs font-bold transition-colors"
+          title="Delete node"
+        >
+          ×
+        </button>
+      )}
       
       <div className="mb-2">
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          XML Group Name
+          Group Name
         </label>
         <input
           type="text"

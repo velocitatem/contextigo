@@ -22,9 +22,9 @@ import CustomInstructionsConnector from './CustomInstructionsConnector';
 import GroupNode from './GroupNode';
 
 const nodeTypes: NodeTypes = {
-  website: WebsiteConnector,
-  custom: CustomInstructionsConnector,
-  group: GroupNode,
+  website: (props: any) => <WebsiteConnector {...props} onDelete={props.data.onDelete} />,
+  custom: (props: any) => <CustomInstructionsConnector {...props} onDelete={props.data.onDelete} />,
+  group: (props: any) => <GroupNode {...props} onDelete={props.data.onDelete} />,
 };
 
 interface FlowCanvasProps {
@@ -44,6 +44,18 @@ export default function FlowCanvas({ onNodesChange, onEdgesChange }: FlowCanvasP
       onEdgesChange(newEdges);
     },
     [edges, setEdges, onEdgesChange]
+  );
+
+  const onDeleteNode = useCallback(
+    (nodeId: string) => {
+      const updatedNodes = nodes.filter(node => node.id !== nodeId);
+      const updatedEdges = edges.filter(edge => edge.source !== nodeId && edge.target !== nodeId);
+      setNodes(updatedNodes);
+      setEdges(updatedEdges);
+      onNodesChange(updatedNodes);
+      onEdgesChange(updatedEdges);
+    },
+    [nodes, edges, setNodes, setEdges, onNodesChange, onEdgesChange]
   );
 
   const onDragOver = useCallback((event: React.DragEvent) => {
@@ -72,6 +84,7 @@ export default function FlowCanvas({ onNodesChange, onEdgesChange }: FlowCanvasP
         data: {
           label: `${type} connector`,
           ...(type === 'group' && { groupName: 'background' }),
+          onDelete: onDeleteNode,
         },
       };
 
@@ -85,9 +98,19 @@ export default function FlowCanvas({ onNodesChange, onEdgesChange }: FlowCanvasP
   const handleNodesChange = useCallback(
     (changes: NodeChange[]) => {
       onNodesChangeInternal(changes);
-      onNodesChange(nodes);
+      // Get the latest nodes after the internal change
+      setTimeout(() => {
+        const currentNodes = nodes.map(node => ({
+          ...node,
+          data: {
+            ...node.data,
+            onDelete: onDeleteNode,
+          },
+        }));
+        onNodesChange(currentNodes);
+      }, 0);
     },
-    [onNodesChangeInternal, onNodesChange, nodes]
+    [onNodesChangeInternal, onNodesChange, nodes, onDeleteNode]
   );
 
   const handleEdgesChange = useCallback(
