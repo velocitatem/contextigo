@@ -17,4 +17,5 @@ export interface NodeData {
   groupName?: string;
   isExecuting?: boolean;
   result?: string;
+  onDelete?: (nodeId: string) => void;
 }
