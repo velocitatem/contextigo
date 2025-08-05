@@ -66,9 +66,29 @@ export default function OutputPreview({ nodes, edges }: OutputPreviewProps) {
 
   const xmlOutput = generateXMLOutput();
 
+  const copyToClipboard = async () => {
+    if (xmlOutput) {
+      try {
+        await navigator.clipboard.writeText(xmlOutput);
+      } catch (err) {
+        console.error('Failed to copy:', err);
+      }
+    }
+  };
+
   return (
     <div className="h-64 bg-gray-50 border-t border-gray-200 p-4">
-      <h3 className="text-sm font-semibold mb-2 text-gray-700">Live XML Output</h3>
+      <div className="flex justify-between items-center mb-2">
+        <h3 className="text-sm font-semibold text-gray-700">Live XML Output</h3>
+        {xmlOutput && (
+          <button
+            onClick={copyToClipboard}
+            className="px-3 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+          >
+            Copy
+          </button>
+        )}
+      </div>
       <div className="h-48 bg-white border border-gray-200 rounded p-3 overflow-auto">
         {xmlOutput ? (
           <pre className="text-sm text-gray-800 whitespace-pre-wrap">

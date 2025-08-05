@@ -20,11 +20,12 @@ import 'reactflow/dist/style.css';
 import WebsiteConnector from './WebsiteConnector';
 import CustomInstructionsConnector from './CustomInstructionsConnector';
 import GroupNode from './GroupNode';
+import { NodeData } from '@/types';
 
 const nodeTypes: NodeTypes = {
-  website: (props: any) => <WebsiteConnector {...props} onDelete={props.data.onDelete} />,
-  custom: (props: any) => <CustomInstructionsConnector {...props} onDelete={props.data.onDelete} />,
-  group: (props: any) => <GroupNode {...props} onDelete={props.data.onDelete} />,
+  website: (props: { data: NodeData; id: string }) => <WebsiteConnector {...props} onDelete={props.data.onDelete} />,
+  custom: (props: { data: NodeData; id: string }) => <CustomInstructionsConnector {...props} onDelete={props.data.onDelete} />,
+  group: (props: { data: NodeData; id: string }) => <GroupNode {...props} onDelete={props.data.onDelete} />,
 };
 
 interface FlowCanvasProps {
